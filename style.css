@@ -470,3 +470,178 @@ body {
     transform: translateY(-3px);
     transition: 0.3s;
 }
+/* ===========================
+   PRODUCT PAGE
+=========================== */
+
+.product-container {
+    display: flex;
+    gap: 60px;
+    padding: 60px;
+    background: #F2F2F2;
+    margin: 20px 40px;
+    border-radius: 25px;
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* ── LEFT: Images ── */
+.product-images {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 45%;
+    flex-shrink: 0;
+}
+
+#product-image {
+    width: 100%;
+    height: 380px;
+    object-fit: contain;
+    border-radius: 18px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Thumbnails row */
+.thumbnails {
+    display: flex;
+    gap: 12px;
+}
+
+.thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: white;
+    padding: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08);
+    transition: 0.25s;
+}
+
+.thumb:hover {
+    border-color: #15324F;
+    transform: translateY(-3px);
+}
+
+/* ── RIGHT: Info ── */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 55%;
+}
+
+#product-name {
+    font-size: 32px;
+    font-weight: 800;
+    color: #111;
+    letter-spacing: -0.5px;
+}
+
+#product-price {
+    font-size: 26px;
+    font-weight: 700;
+    color: #15324F;
+}
+
+#product-description {
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.7;
+    max-width: 420px;
+}
+
+#product-availability {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2e7d32; /* green */
+}
+
+/* ── Option Groups (Storage & Color) ── */
+.option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-group p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+}
+
+.option-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1.5px solid #ccc;
+    background: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: 0.2s;
+}
+
+.option-btn:hover {
+    border-color: #15324F;
+    color: #15324F;
+}
+
+/* Selected button */
+.option-btn.active {
+    background: linear-gradient(135deg, #15324F, #0b1d33);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0px 8px 20px rgba(21, 50, 79, 0.25);
+}
+
+/* ── Add to Cart Button ── */
+#add-to-cart-btn {
+    width: fit-content;
+    padding: 13px 35px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(135deg, #15324F, #0b1d33);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.25s;
+    box-shadow: 0px 10px 25px rgba(21, 50, 79, 0.25);
+}
+
+#add-to-cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 15px 35px rgba(21, 50, 79, 0.35);
+}
+
+/* ── Cart Confirmation Message ── */
+#cart-message {
+    font-size: 13px;
+    color: #2e7d32;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .product-container {
+        flex-direction: column;
+        padding: 30px;
+        margin: 15px;
+    }
+
+    .product-images,
+    .product-info {
+        width: 100%;
+    }
+
+    #product-image {
+        height: 280px;
+    }
+}
