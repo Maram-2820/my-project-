@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechZone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="nav-left">
+        <a href="index.html" class="logo">
+            <img src="./images/logo.png" alt="TechZone Logo">
+        </a>
+        <a href="#">Store</a>
+        <a href="#">Mobile</a>
+        <a href="#">Laptop</a>
+        <a href="#">Tablet</a>
+        <a href="#">Accessories</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="nav-right">
+        <div class="search-box">
+            <input type="text" class="search-bar" placeholder="Search...">
+            <button class="search-btn">
+                <img class="loupe" src="./images/loupe.png" alt="Search">
+            </button>
+        </div>
+        <a href="cart.html" class="bag">
+            <img src="./images/bag.png" alt="Bag">
+        </a>
+    </div>
+</header>
+
+<div class="product-page">
+
+    <div class="product-images">
+        <img id="product-image" src="" alt="Product Image">
+        <div class="thumbnails">
+            <img class="thumb" src="" alt="">
+            <img class="thumb" src="" alt="">
+            <img class="thumb" src="" alt="">
+        </div>
+    </div>
+
+    <div class="product-info">
+        <h2 id="product-name"></h2>
+        <p id="product-price"></p>
+        <p id="product-description"></p>
+        <p id="product-availability"></p>
+
+        <div class="option-group">
+            <p>Storage:</p>
+            <div id="storage-options"></div>
+        </div>
+
+        <div class="option-group">
+            <p>Color:</p>
+            <div id="color-options"></div>
+        </div>
+
+        <button id="add-to-cart-btn">Add to Cart</button>
+        <p id="cart-message"></p>
+    </div>
+</div>
+
+<script>
+
+const products = {
+
+  iphone: {
+    name: "iPhone 17 Pro Max",
+    price: "1399$",
+    images: [
+      "./images/iphone.jfif",
+      "./images/iphone2.jfif",
+      "./images/iphone3.jfif "
+    ],
+    description: "The iPhone 17 Pro Max is Apple's most powerful smartphone ever built. Featuring the all-new A19 Pro chip, a stunning 6.9-inch Super Retina XDR display, and a revolutionary 200MP camera system with 8K video recording. With titanium design, satellite connectivity, and all-day battery life, this is the ultimate iPhone experience.",
+    storage: ["256GB", "512GB", "1TB"],
+    color: ["Dark Blue", "Orange", "White"],
+    availability: "In Stock"
+  },
+
+  macbook: {
+    name: "MacBook Pro",
+    price: "2499$",
+    images: [
+      "./images/mac.jpg",
+      "./images/mac2.jfif",
+      "./images/mac3.jfif"
+    ],
+    description: "The MacBook Pro with M4 Pro chip delivers extraordinary performance for professionals. Featuring a stunning 16-inch Liquid Retina XDR display, up to 48GB unified memory, and up to 22 hours of battery life. Whether you are editing 8K video, compiling code, or designing 3D models, the MacBook Pro handles everything effortlessly.",
+    storage: ["512GB", "1TB", "2TB"],
+    color: ["Silver", "Space Black"],
+    availability: "In Stock"
+  },
+
+  samsung: {
+    name: "Samsung S23 Ultra",
+    price: "1199$",
+    images: [
+      "./images/sam.jfif",
+      "./images/sam2.jfif",
+      "./images/sam3.jfif"
+    ],
+    description: "The Samsung Galaxy S23 Ultra is the ultimate Android powerhouse. Equipped with a built-in S Pen, a 200MP adaptive camera, and Snapdragon 8 Gen 2 processor. Its massive 5000mAh battery with 45W fast charging keeps you going all day. The 6.8-inch Dynamic AMOLED display makes everything look breathtaking.",
+    storage: ["256GB", "512GB"],
+    color: ["Dark Blue", "Orange", "White"],
+    availability: "In Stock"
+  },
+
+  airpods: {
+    name: "Apple AirPods Max",
+    price: "549$",
+    images: [
+       "./images/air.jfif",
+      "./images/air2.jfif",
+      "./images/air3.jfif"
+    ],
+    description: "AirPods Max deliver an extraordinary listening experience with high-fidelity audio, industry-leading Active Noise Cancellation, and Transparency mode. The custom Apple H1 chip and adaptive EQ work together to produce rich and detailed sound. Designed with a premium mesh headband and memory foam ear cushions for all-day comfort.",
+    storage: ["One Size"],
+    color: ["Dark Blue", "Orange", "White"],
+    availability: "In Stock"
+  }
+
+};
+
+// --- Get product from URL ---
+const params = new URLSearchParams(window.location.search);
+const productKey = params.get("product");
+const product = products[productKey];
+
+if (product) {
+
+  document.getElementById("product-name").textContent = product.name;
+  document.getElementById("product-price").textContent = product.price;
+  document.getElementById("product-description").textContent = product.description;
+  document.getElementById("product-availability").textContent = "Availability: " + product.availability;
+
+  const mainImage = document.getElementById("product-image");
+  mainImage.src = product.images[0];
+
+  const thumbs = document.querySelectorAll(".thumb");
+  thumbs.forEach((thumb, index) => {
+    if (product.images[index]) {
+      thumb.src = product.images[index];
+      thumb.addEventListener("click", function() {
+        mainImage.src = product.images[index];
+      });
+    }
+  });
+
+  let selectedStorage = product.storage[0];
+  const storageContainer = document.getElementById("storage-options");
+  product.storage.forEach(function(option) {
+    const btn = document.createElement("button");
+    btn.textContent = option;
+    btn.classList.add("option-btn");
+    btn.addEventListener("click", function() {
+      document.querySelectorAll("#storage-options .option-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedStorage = option;
+    });
+    storageContainer.appendChild(btn);
+  });
+
+  let selectedColor = product.color[0];
+  const colorContainer = document.getElementById("color-options");
+  product.color.forEach(function(option) {
+    const btn = document.createElement("button");
+    btn.textContent = option;
+    btn.classList.add("option-btn");
+    btn.addEventListener("click", function() {
+      document.querySelectorAll("#color-options .option-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedColor = option;
+    });
+    colorContainer.appendChild(btn);
+  });
+
+  document.getElementById("add-to-cart-btn").addEventListener("click", function() {
+    const message = product.name + " | " + selectedStorage + " | " + selectedColor + " → Added to cart!";
+    document.getElementById("cart-message").textContent = message;
+  });
+
+} else {
+  document.getElementById("product-name").textContent = "Product not found.";
+}
+
+</script>
+</body>
+</html>

@@ -470,11 +470,12 @@ body {
     transform: translateY(-3px);
     transition: 0.3s;
 }
+
 /* ===========================
    PRODUCT PAGE
 =========================== */
 
-.product-container {
+.product-page {
     display: flex;
     gap: 60px;
     padding: 60px;
@@ -630,7 +631,7 @@ body {
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-    .product-container {
+    .product-page {
         flex-direction: column;
         padding: 30px;
         margin: 15px;
