@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - TechZone</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="nav-left">
+    <a href="index.html" class="logo">
+      <img src="./images/logo.png" alt="TechZone Logo">
+    </a>
+    <a href="store.html">Store</a>
+    <a href="#">Mobile</a>
+    <a href="#">Laptop</a>
+    <a href="#">Tablet</a>
+    <a href="#">Accessories</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+
+  <div class="nav-right">
+    <a href="cart.html" class="bag">
+      <img src="./images/bag.png" alt="Bag">
+      <span class="cart-count" id="cart-count">0</span>
+    </a>
+  </div>
+</header>
+
+<!-- CART PAGE -->
+<section class="cart-page">
+
+  <h1 class="cart-page-title">Shopping Cart</h1>
+  <p class="cart-page-sub" id="cart-subtitle">Loading your items...</p>
+
+  <!-- dynamic content injected here -->
+  <div id="cart-content"></div>
+
+</section>
+
+<!-- toast notification -->
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+  function getCart() {
+    return JSON.parse(localStorage.getItem("cart")) || [];
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2800);
+  }
+
+  function formatPrice(num) {
+    return parseFloat(num).toFixed(2) + "$";
+  }
+
+  function parsePrice(price) {
+    if (typeof price === "number") return price;
+    return parseFloat(String(price).replace(/[^0-9.]/g, "")) || 0;
+  }
+
+  function updateCartCount() {
+    const cart = getCart();
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const el = document.getElementById("cart-count");
+    if (el) el.textContent = count;
+  }
+
+  function removeItem(index) {
+    const cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    render();
+    showToast("Item removed from cart");
+  }
+
+  function changeQty(index, delta) {
+    const cart = getCart();
+    cart[index].quantity = Math.max(1, cart[index].quantity + delta);
+    saveCart(cart);
+    render();
+  }
+
+  function handleCheckout() {
+    const cart = getCart();
+    if (cart.length === 0) return;
+
+    showToast("Order placed successfully! Thank you 🎉");
+
+    setTimeout(() => {
+      localStorage.removeItem("cart");
+      render();
+    }, 1800);
+  }
+
+  function render() {
+    updateCartCount();
+
+    const cart = getCart();
+    const container = document.getElementById("cart-content");
+    const subtitle  = document.getElementById("cart-subtitle");
+
+    if (cart.length === 0) {
+      subtitle.textContent = "Your cart is empty.";
+
+      container.innerHTML = `
+        <div class="cart-empty">
+          <div class="cart-empty-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 01-8 0"/>
+            </svg>
+          </div>
+
+          <h3>Nothing here yet</h3>
+          <p>Add some products to your cart and they will appear here.</p>
+          <a href="index.html">Continue Shopping</a>
+        </div>
+      `;
+      return;
+    }
+
+    const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
+    subtitle.textContent = totalItems === 1 ? "1 item in your cart" : `${totalItems} items in your cart`;
+
+    const subtotal = cart.reduce((s, i) => s + parsePrice(i.price) * i.quantity, 0);
+    const shipping = subtotal > 500 ? 0 : 9.99;
+    const total    = subtotal + shipping;
+
+    const itemsHTML = cart.map((item, index) => {
+      const lineTotal = parsePrice(item.price) * item.quantity;
+
+      return `
+        <div class="cart-item" style="animation-delay:${index * 0.06}s">
+          <img class="cart-item-img"
+               src="${item.image || './images/placeholder.jpg'}"
+               alt="${item.name}"
+               onerror="this.src='./images/placeholder.jpg'">
+
+          <div class="cart-item-details">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-variant">${item.storage || ''} ${item.color ? '· ' + item.color : ''}</div>
+            <div class="cart-item-price">${formatPrice(parsePrice(item.price))} each</div>
+          </div>
+
+          <div class="cart-item-controls">
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
+              <span class="qty-value">${item.quantity}</span>
+              <button class="qty-btn" onclick="changeQty(${index}, +1)">+</button>
+            </div>
+
+            <div class="cart-item-total">
+              <span class="line-total">${formatPrice(lineTotal)}</span>
+
+              <button class="remove-btn" onclick="removeItem(${index})">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6l-1 14H6L5 6"/>
+                  <path d="M10 11v6M14 11v6"/>
+                  <path d="M9 6V4h6v2"/>
+                </svg>
+                Remove
+              </button>
+            </div>
+
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="cart-layout">
+
+        <div class="cart-items-list">
+          ${itemsHTML}
+        </div>
+
+        <div class="cart-summary-box">
+          <div class="summary-title">Order Summary</div>
+
+          <div class="summary-row">
+            <span>Subtotal (${totalItems} item${totalItems > 1 ? 's' : ''})</span>
+            <span>${formatPrice(subtotal)}</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>${shipping === 0 ? 'Free' : formatPrice(shipping)}</span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-total">
+            <span class="summary-total-label">Total</span>
+            <span class="summary-total-amount">${formatPrice(total)}</span>
+          </div>
+
+          <button class="checkout-btn" onclick="handleCheckout()">
+            Proceed to Checkout →
+          </button>
+
+          <a href="index.html" class="continue-link">← Continue Shopping</a>
+        </div>
+
+      </div>
+    `;
+  }
+
+  render();
+
+</script>
+
+</body>
+</html>

@@ -32,6 +32,7 @@
         </div>
         <a href="cart.html" class="bag">
             <img src="./images/bag.png" alt="Bag">
+             <span class="cart-count" id="cart-count">0</span>
         </a>
     </div>
 </header>
@@ -59,10 +60,11 @@
                 <img src="./images/ten Large.jpeg" alt="">
                 <img src="./images/eleven Large.jpeg" alt="">
                 <img src="./images/twelve Large.jpeg" alt="">
-                <img src="./images/immage1 Large.jpeg" alt="">
                 <img src="./images/thirteen Large.jpeg" alt="">
                 <img src="./images/fourteen Large.jpeg" alt="">
-                <img src="./images/fifteen Large.jpeg" alt="">
+                <img src="./images/still-life-tech-device.jpg" alt="">
+                <img src="./images/2150722697.jpg" alt="">
+                
 
                 <!-- duplicates for seamless loop -->
                 <img src="./images/one Large.jpeg" alt="">
@@ -77,10 +79,10 @@
                 <img src="./images/ten Large.jpeg" alt="">
                 <img src="./images/eleven Large.jpeg" alt="">
                 <img src="./images/twelve Large.jpeg" alt="">
-                <img src="./images/immage1 Large.jpeg" alt="">
                 <img src="./images/thirteen Large.jpeg" alt="">
                 <img src="./images/fourteen Large.jpeg" alt="">
-                <img src="./images/fifteen Large.jpeg" alt="">
+                <img src="./images/still-life-tech-device.jpg" alt="">
+                 <img src="./images/2150722697.jpg" alt="">
             </div>
         </div>
     </div>
@@ -123,7 +125,43 @@
     <h3>Apple AirPods Max</h3>
     <p>549$</p>
 </a>
+
+<!-- Apple Watch -->
+<a href="product.html?product=watch" class="product-card">
+    <span class="badge">New</span>
+    <img src="./images/Apple Watch Series 8 41mm (a2772) Gps + Lte Starlight Al_starlight Sp Band (s_m).jpeg" alt="Apple Watch">
+    <h3>Apple Watch</h3>
+    <p>549$</p>
+</a>
+
+<!-- Power Bank -->
+<a href="product.html?product=powerbank" class="product-card">
+    <span class="badge">New</span>
+    <img src="./images/powerB.jpg" alt="Power Bank">
+    <h3>Power Bank</h3>
+    <p>100$</p>
+</a>
+
+
+<!-- Tablet -->
+<a href="product.html?product=airpods" class="product-card">
+    <span class="badge">New</span>
+    <img src="./images/airpodss.jpg" alt="airpods">
+    <h3>Apple AirPods Max</h3>
+    <p>200$</p>
+</a>
+
+<!-- pc -->
+<a href="product.html?product=hp" class="product-card">
+    <span class="badge">New</span>
+    <img src="./images/hp.jpg" alt="hp">
+    <h3>Hp 11gen </h3>
+    <p>700$</p>
+</a>
+
+
     </div>
+
 
     <div class="products-more">
         <a href="store.html" class="more-btn">View More Products</a>
@@ -131,15 +169,16 @@
 
 </section>
 
+
+
+
+
 <!-- ABOUT SECTION -->
 <section class="about">
-    <h2>À propos</h2>
+    <h2>About Us</h2>
     <div class="about-content">
         <p>
-            TechZone est une boutique spécialisée dans les produits technologiques 
-            modernes tels que les smartphones, ordinateurs portables et accessoires. 
-            Nous offrons des produits de haute qualité avec les dernières innovations 
-            pour répondre à vos besoins.
+TechZone is your one-stop shop for the latest and greatest in tech. We offer a curated selection of premium phones, laptops, tablets, and accessories designed to enhance your digital lifestyle. Our mission is to provide top-quality products that combine cutting-edge technology with sleek design, all at competitive prices. Whether you're a tech enthusiast or just looking for reliable devices, TechZone has something for everyone. Experience the future of technology with us!
         </p>
     </div>
 </section>
@@ -155,6 +194,25 @@
         </div>
     </div>
 </section>
+
+
+<script>
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let count = 0;
+
+    cart.forEach(item => {
+        count += item.quantity;
+    });
+
+    const cartCountEl = document.getElementById("cart-count");
+    if (cartCountEl) {
+        cartCountEl.textContent = count;
+    }
+}
+
+updateCartCount();
+</script>
 
 </body>
 </html>

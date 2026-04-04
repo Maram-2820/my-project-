@@ -73,7 +73,7 @@ const products = {
 
   iphone: {
     name: "iPhone 17 Pro Max",
-    price: "1399$",
+    price: 1399,
     images: [
       "./images/iphone.jfif",
       "./images/iphone2.jfif",
@@ -87,7 +87,7 @@ const products = {
 
   macbook: {
     name: "MacBook Pro",
-    price: "2499$",
+    price: 2499,
     images: [
       "./images/mac.jpg",
       "./images/mac2.jfif",
@@ -101,7 +101,7 @@ const products = {
 
   samsung: {
     name: "Samsung S23 Ultra",
-    price: "1199$",
+    price: 1199,
     images: [
       "./images/sam.jfif",
       "./images/sam2.jfif",
@@ -115,7 +115,7 @@ const products = {
 
   airpods: {
     name: "Apple AirPods Max",
-    price: "549$",
+    price: 549,
     images: [
        "./images/air.jfif",
       "./images/air2.jfif",
@@ -183,14 +183,62 @@ if (product) {
   });
 
   document.getElementById("add-to-cart-btn").addEventListener("click", function() {
-    const message = product.name + " | " + selectedStorage + " | " + selectedColor + " → Added to cart!";
-    document.getElementById("cart-message").textContent = message;
-  });
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const cartItem = {
+        key: productKey,
+        name: product.name,
+        price: product.price,
+        image: product.images[0],
+        storage: selectedStorage,
+        color: selectedColor,
+        quantity: 1
+    };
+
+    const existing = cart.find(item =>
+        item.key === cartItem.key &&
+        item.storage === cartItem.storage &&
+        item.color === cartItem.color
+    );
+
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push(cartItem);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    document.getElementById("cart-message").textContent = "Added to cart successfully!";
+
+    updateCartCount(); // ✅ updates the bag number immediately
+});
 
 } else {
   document.getElementById("product-name").textContent = "Product not found.";
 }
 
 </script>
+
+
+<script>
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let count = 0;
+
+    cart.forEach(item => {
+        count += item.quantity;
+    });
+
+    const cartCountEl = document.getElementById("cart-count");
+    if (cartCountEl) {
+        cartCountEl.textContent = count;
+    }
+}
+
+updateCartCount();
+</script>
 </body>
 </html>
+
