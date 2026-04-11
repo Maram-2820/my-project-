@@ -297,7 +297,7 @@ body {
 /* IMAGE CONTAINER */
 .product-card img {
   width: 100%;
-  height: 160px; /* 🔥 fixed image space */
+  height: 160px; /* fixed image space */
   object-fit: contain; /* keeps image ratio (VERY IMPORTANT) */
   margin-bottom: 10px;
 }
@@ -341,7 +341,7 @@ body {
   font-weight: 500;
 }
 
-/* Hover effects 🔥 */
+/* Hover effects  */
 .product-card:hover {
   transform: translateY(-8px);
   box-shadow: 0px 18px 35px rgba(0, 0, 0, 0.18);
