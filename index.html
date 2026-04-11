@@ -87,6 +87,43 @@
         </div>
     </div>
 </section>
+<!-- FILTER SECTION -->
+<div class="filter-section">
+
+    <!-- Brand -->
+    <div class="filter-group">
+    <p>Brand:</p>
+    <button class="filter-btn active" onclick="filterProducts('all', event)">All</button>
+    <button class="filter-btn" onclick="filterProducts('apple', event)">Apple</button>
+    <button class="filter-btn" onclick="filterProducts('samsung', event)">Samsung</button>
+    <button class="filter-btn" onclick="filterProducts('hp', event)">HP</button>
+    <button class="filter-btn" onclick="filterProducts('other', event)">Other</button>
+</div>
+
+    <!-- Price -->
+    <div class="filter-group">
+        <p>Price:</p>
+        <button class="filter-btn" onclick="filterByPrice(0, 500)">Under 500$</button>
+        <button class="filter-btn" onclick="filterByPrice(500, 1500)">500$ - 1500$</button>
+        <button class="filter-btn" onclick="filterByPrice(1500, 9999)">Above 1500$</button>
+    </div>
+
+    <!-- Type -->
+    <div class="filter-group">
+        <p>Type:</p>
+        <button class="filter-btn" onclick="filterProducts('mobile')">Mobile</button>
+        <button class="filter-btn" onclick="filterProducts('laptop')">Laptop</button>
+        <button class="filter-btn" onclick="filterProducts('accessories')">Accessories</button>
+    </div>
+
+    <!-- Sort -->
+    <div class="filter-group">
+        <p>Sort:</p>
+        <button class="filter-btn" onclick="sortProducts('low')">Price Low to High</button>
+        <button class="filter-btn" onclick="sortProducts('high')">Price High to Low</button>
+    </div>
+
+</div>
 
 <!-- PRODUCTS SECTION -->
 <section class="products">
@@ -94,8 +131,12 @@
     <h2>Our Products</h2>
 
     <div class="product-container">
+
 <!-- iPhone 17 Pro Max -->
-<a href="product.html?product=iphone" class="product-card">
+<a href="product.html?product=iphone" class="product-card"
+   data-brand="apple"
+   data-type="mobile"
+   data-price="1399">
     <span class="badge">New</span>
     <img src="./images/iphone.jfif" alt="iPhone 17 Pro Max">
     <h3>iPhone 17 Pro Max</h3>
@@ -103,7 +144,10 @@
 </a>
 
 <!-- MacBook Pro -->
-<a href="product.html?product=macbook" class="product-card">
+<a href="product.html?product=macbook" class="product-card"
+   data-brand="apple"
+   data-type="laptop"
+   data-price="2499">
     <span class="badge">New</span>
     <img src="./images/mac.jpg" alt="MacBook Pro">
     <h3>MacBook Pro</h3>
@@ -111,7 +155,10 @@
 </a>
 
 <!-- Samsung S23 Ultra -->
-<a href="product.html?product=samsung" class="product-card">
+<a href="product.html?product=samsung" class="product-card"
+   data-brand="samsung"
+   data-type="mobile"
+   data-price="1199">
     <span class="badge">New</span>
     <img src="./images/sam.jfif" alt="Samsung S23 Ultra">
     <h3>Samsung S23 Ultra</h3>
@@ -119,7 +166,10 @@
 </a>
 
 <!-- Apple AirPods Max -->
-<a href="product.html?product=airpods" class="product-card">
+<a href="product.html?product=airpods" class="product-card"
+   data-brand="apple"
+   data-type="accessories"
+   data-price="549">
     <span class="badge">New</span>
     <img src="./images/air.jfif" alt="Apple AirPods Max">
     <h3>Apple AirPods Max</h3>
@@ -127,7 +177,10 @@
 </a>
 
 <!-- Apple Watch -->
-<a href="product.html?product=watch" class="product-card">
+<a href="product.html?product=watch" class="product-card"
+   data-brand="apple"
+   data-type="accessories"
+   data-price="549">
     <span class="badge">New</span>
     <img src="./images/Apple Watch Series 8 41mm (a2772) Gps + Lte Starlight Al_starlight Sp Band (s_m).jpeg" alt="Apple Watch">
     <h3>Apple Watch</h3>
@@ -135,33 +188,39 @@
 </a>
 
 <!-- Power Bank -->
-<a href="product.html?product=powerbank" class="product-card">
+<a href="product.html?product=powerbank" class="product-card"
+   data-brand="other"
+   data-type="accessories"
+   data-price="100">
     <span class="badge">New</span>
     <img src="./images/powerB.jpg" alt="Power Bank">
     <h3>Power Bank</h3>
     <p>100$</p>
 </a>
 
-
-<!-- Tablet -->
-<a href="product.html?product=airpods" class="product-card">
+<!-- AirPods 2 -->
+<a href="product.html?product=airpods" class="product-card"
+   data-brand="apple"
+   data-type="accessories"
+   data-price="200">
     <span class="badge">New</span>
     <img src="./images/airpodss.jpg" alt="airpods">
     <h3>Apple AirPods Max</h3>
     <p>200$</p>
 </a>
 
-<!-- pc -->
-<a href="product.html?product=hp" class="product-card">
+<!-- HP 11gen -->
+<a href="product.html?product=hp" class="product-card"
+   data-brand="hp"
+   data-type="laptop"
+   data-price="700">
     <span class="badge">New</span>
     <img src="./images/hp.jpg" alt="hp">
-    <h3>Hp 11gen </h3>
+    <h3>Hp 11gen</h3>
     <p>700$</p>
 </a>
 
-
-    </div>
-
+</div>
 
     <div class="products-more">
         <a href="store.html" class="more-btn">View More Products</a>
@@ -212,6 +271,60 @@ function updateCartCount() {
 }
 
 updateCartCount();
+
+// --- FILTER BY BRAND OR TYPE ---
+function filterProducts(value) {
+    const cards = document.querySelectorAll(".product-card");
+
+    cards.forEach(card => {
+        const brand = card.getAttribute("data-brand");
+        const type = card.getAttribute("data-type");
+
+        if (value === "all") {
+            card.style.display = "flex"; // show all
+        } else if (brand === value || type === value) {
+            card.style.display = "flex"; // show matching
+        } else {
+            card.style.display = "none"; // hide others
+        }
+    });
+
+    // highlight active button
+    document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+}
+
+// --- FILTER BY PRICE ---
+function filterByPrice(min, max) {
+    const cards = document.querySelectorAll(".product-card");
+
+    cards.forEach(card => {
+        const price = parseFloat(card.getAttribute("data-price"));
+
+        if (price >= min && price <= max) {
+            card.style.display = "flex";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+// --- SORT PRODUCTS ---
+function sortProducts(order) {
+    const container = document.querySelector(".product-container");
+    const cards = Array.from(document.querySelectorAll(".product-card"));
+
+    cards.sort((a, b) => {
+        const priceA = parseFloat(a.getAttribute("data-price"));
+        const priceB = parseFloat(b.getAttribute("data-price"));
+
+        if (order === "low") return priceA - priceB;  // low to high
+        if (order === "high") return priceB - priceA; // high to low
+    });
+
+    // put sorted cards back
+    cards.forEach(card => container.appendChild(card));
+}
 </script>
 
 </body>
