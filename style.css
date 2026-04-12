@@ -237,6 +237,48 @@ body {
 .slider:hover {
     animation-play-state: paused;
 }
+/* FILTER SECTION */
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 30px 60px;
+    background: #F2F2F2;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-group p {
+    font-weight: 700;
+    font-size: 14px;
+    color: #15324F;
+}
+
+.filter-btn {
+    padding: 7px 18px;
+    border-radius: 20px;
+    border: 1.5px solid #ccc;
+    background: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filter-btn:hover {
+    border-color: #15324F;
+    color: #15324F;
+}
+
+.filter-btn.active {
+    background: #15324F;
+    color: white;
+    border-color: transparent;
+}
 
 /* IMAGES */
 .slider img {
