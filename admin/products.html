@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Management</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+  <div class="sidebar">
+    <h2>TechZone</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="products.html">Products</a>
+    <a href="orders.html">Orders</a>
+    <a href="users.html">Users</a>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <div class="main-content">
+    <h1>Product Management</h1>
+    <p>Add, edit, and remove store products.</p>
+
+    <div class="form-box">
+      <h2>Add New Product</h2>
+
+      <input type="text" id="productName" placeholder="Product Name">
+      <input type="text" id="productBrand" placeholder="Brand">
+      <input type="number" id="productPrice" placeholder="Price">
+    <select id="productCategory">
+      <option value="">Select Category</option>
+      <option value="smartphones">Smartphones</option>
+      <option value="laptops">Laptops</option>
+      <option value="tablets">Tablets</option>
+      <option value="accessories">Accessories</option>
+    </select>
+      <input type="text" id="productSpecs" placeholder="Specs">
+      <input type="number" id="productQuantity" placeholder="Quantity">
+      <input type="text" id="productImage" placeholder="Image name / URL">
+
+      <button id="addProductBtn">Add Product</button>
+    </div>
+
+    <div class="table-box">
+      <h2>Product List</h2> 
+
+      <input type="text" id="searchProduct" placeholder="Search product...">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody id="productTableBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>

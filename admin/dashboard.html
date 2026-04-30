@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+  <div class="sidebar">
+    <h2>TechZone</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="products.html">Products</a>
+    <a href="orders.html">Orders</a>
+    <a href="users.html">Users</a>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <div class="main-content">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome back, Admin</p>
+
+    <div class="stats-container">
+      <div class="stat-card">
+        <h3>Total Products</h3>
+        <p>12</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Current Orders</h3>
+        <p>5</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Registered Users</h3>
+        <p>8</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Low Stock</h3>
+        <p>3</p>
+      </div>
+    </div>
+
+    <div class="dashboard-box">
+      <h2>Quick Search</h2>
+      <input type="text" placeholder="Search products, orders, users...">
+      <button>Search</button>
+    </div>
+  </div>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Management</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body class="admin-body">
+
+  <div class="sidebar">
+    <h2>TechZone</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="products.html">Products</a>
+    <a href="orders.html">Orders</a>
+    <a href="users.html">Users</a>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <div class="main-content">
+    <h1>Order Management</h1>
+    <p>View customer orders and update their status.</p>
+
+    <div class="table-box">
+      <h2>Customer Orders</h2>
+
+      <button id="exportOrdersBtn" class="export-btn">Export Order History</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+
+        <tbody id="ordersTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>
